@@ -1,0 +1,9 @@
+#user-script {
+    font-family: "Jetbrains Mono", monospace !important;
+    font-size: 1rem !important;
+}
+
+#output-logs {
+    font-family: "Jetbrains Mono", monospace !important;
+    font-size: 0.8rem !important;
+}

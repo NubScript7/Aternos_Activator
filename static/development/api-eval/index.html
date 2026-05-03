@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Eval Runner</title>
+
+    <link rel="stylesheet" href="./evaluator/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="container-fluid p-3">
+
+            <!-- title -->
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="text-center">Aternos API Tester</h1>
+                </div>
+            </div>
+
+            <!-- buttons dashboard -->
+            <div class="card my-3">
+
+                <div class="card-body p-2">
+                    
+                    <div class="dropdown">
+                        <button class="btn btn-secondary"></button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- script logs -->
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h2 class="text-center">Response</h2>
+
+                    <textarea class="form-control" id="response-text" readonly></textarea>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="./api-eval/main.js"></script>
+</body>
+</html>
+
+const routes = [
+    "/close/:box - close an alert box (ad, alert)",
+    "/click/:action - send a server action (start, stop, restart, confirm, cancel)",
+    "/info - get the current server stats",
+    "/actions - fetches the available server actions",
+    "/status - get the current server status -- DEPRECATED, USE /INFO INSTEAD",
+    "/screenshot - takes a screenshot and display it",
+    "/evaluate - used to send executable javascript to the browser",
+    "/ping - test the server",
+]

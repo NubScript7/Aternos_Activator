@@ -1,0 +1,39 @@
+{
+  "name": "aternos_activator",
+  "version": "1.0.0",
+  "description": "a small messenger bot that can start an aternos server by sending commands",
+  "keywords": [
+    "messenger",
+    "aternos",
+    "bot"
+  ],
+  "license": "MIT",
+  "author": "NubScript7",
+  "type": "module",
+  "main": "dist/index.js",
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup src/index.ts",
+    "start": "npm run build && node dist/index.cjs"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.19.12",
+    "@types/node": "^25.5.0",
+    "@types/puppeteer": "^5.4.7",
+    "axios": "^1.15.0",
+    "dotenv": "^17.4.1",
+    "firebase-admin": "^13.8.0",
+    "hono": "^4.12.10",
+    "iocane": "^5.2.0",
+    "puppeteer": "^24.40.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-adblocker": "^2.13.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "ts-dotenv": "^0.9.1",
+    "tsup": "^8.5.1",
+    "tsx": "^4.21.0"
+  }
+}
