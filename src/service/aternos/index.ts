@@ -2,7 +2,7 @@ import extra, { type PuppeteerExtra } from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import AdblockerPlugin from "puppeteer-extra-plugin-adblocker"
 import { puppeteerOptions } from "./config.js";
-import { getAternosCookie } from "./cookieParser.js";
+import { getAternosCookie } from "./cookieManager.js";
 import type { Browser, Page, ScreenshotOptions } from "puppeteer";
 import { injectHelper } from "./helperInjector.js";
 import { wait } from "../util/timer.js";

@@ -6,7 +6,7 @@ export class FirebaseDatabaseService {
     private static _instance: FirebaseDatabaseService | null = null
 
     firebase: FirebaseService | null = null
-    database: Database | null = null
+    db: Database | null = null
 
     static getInstance() {
         if(!this._instance) {
@@ -20,7 +20,7 @@ export class FirebaseDatabaseService {
         this.firebase = FirebaseService.getInstance()
         this.firebase.initialize()
 
-        this.database = getDatabase(this.firebase.app!)
+        this.db = getDatabase(this.firebase.app!)
         
     }
 }

@@ -6,8 +6,10 @@ import { decode } from "../util/encoder.js";
 
 config({quiet: true})
 
-const ATERNOS_DB_PATH_PREFIX = "service/aternos/cookie"
+export const ATERNOS_DB_PATH_PREFIX = "service/aternos/cookie"
 
+const database = FirebaseDatabaseService.getInstance()
+database.initialize()
 export class AternosCookieLoaderService extends CookieLoaderService {
     
     hasLoaded = false
@@ -16,10 +18,7 @@ export class AternosCookieLoaderService extends CookieLoaderService {
     async loadCookie() {
         if (this.hasLoaded) return
 
-        const database = FirebaseDatabaseService.getInstance()
-        database.initialize()
-
-        const cookiePath = database.database?.ref(ATERNOS_DB_PATH_PREFIX)
+        const cookiePath = database.db?.ref(ATERNOS_DB_PATH_PREFIX)
         const cookie = await cookiePath?.once("value")
         const valueRaw = cookie?.child("string").val()
 
@@ -30,6 +29,14 @@ export class AternosCookieLoaderService extends CookieLoaderService {
         const json = JSON.parse(value)
 
         this.cookie = json
+    }
+
+    /**
+     * Provide cookies in stringified form
+     */
+    setCookie(cookies: string) {
+        const cookiePath = database.db?.ref(ATERNOS_DB_PATH_PREFIX)
+        return cookiePath?.set(cookies)
     }
     
 }
