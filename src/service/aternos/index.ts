@@ -1,21 +1,11 @@
-import extra, { type PuppeteerExtra } from "puppeteer-extra";
-import StealthPlugin from "puppeteer-extra-plugin-stealth";
-import AdblockerPlugin from "puppeteer-extra-plugin-adblocker"
-import { puppeteerOptions } from "./config.js";
 import { getAternosCookie } from "./cookieManager.js";
 import type { Browser, Page, ScreenshotOptions } from "puppeteer";
 import { injectHelper } from "./helperInjector.js";
 import { wait } from "../util/timer.js";
+import { puppeteerService } from "../puppeteer/index.js";
 
-const puppeteer = extra as unknown as PuppeteerExtra;
+const puppeteer = puppeteerService.getPuppeteer()
 const aternosURL = "https://aternos.org/server/"
-
-const adblocker = AdblockerPlugin.default({
-    blockTrackers: true
-})
-
-puppeteer.use(StealthPlugin())
-puppeteer.use(adblocker)
 
 const shortTimeout = 3_000
 
@@ -62,6 +52,9 @@ export class AternosService {
     get status() {
         return {...this._status}
     }
+
+    hasReportedError = false
+    launchError: Error | null = null
 
     cookies: any[] | null = null
     browser: Browser | null = null
@@ -296,7 +289,7 @@ export class AternosService {
                 return
             }
     
-            this.browser = await puppeteer.launch(puppeteerOptions)
+            this.browser = await puppeteerService.getBrowser()
             await this.loadCookies()
         
             await this.navigatePage()
@@ -308,14 +301,22 @@ export class AternosService {
             await this.injectStatusObserver()
             await this.injectServerActionObserver()
     
+            console.log("closing any open alert box...")
+
             await this.closeAlertbox()
+
+            console.log("closing any ads...")
             await this.closeAdbox()
     
             this._status.isServiceReady = true
     
             console.log("Aternos service is ready!!")
         } catch (err) {
-            console.log("Something went wrong!")
+            if (err instanceof Error) {
+                console.log("Something went wrong!")
+                this.launchError = err
+            }
+            
             console.log({err})
         }
     }
