@@ -27,7 +27,7 @@ export class PuppeteerService {
             })
 
             this.puppeteer.use(StealthPlugin())
-            this.puppeteer.use(adblocker)
+            // this.puppeteer.use(adblocker)
         }
     }
 

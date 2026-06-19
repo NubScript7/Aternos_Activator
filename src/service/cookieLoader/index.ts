@@ -7,7 +7,7 @@ const loadableCookieServices = {
 
 
 /* 
-    all cookie loader seervices should have "CookieLoaderService" appended to the name of another service its loading for
+    all cookie loader services should have "CookieLoaderService" appended to the name of another service its loading for
     all cookie loader services should extend "CookieLoaderService"
     and be added to "loadableCookieServices" to be called
 */
