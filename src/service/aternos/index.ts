@@ -1,8 +1,9 @@
-import { getAternosCookie } from "./cookieManager.js";
+import { getAternosCookie, updateAternosCookie } from "./cookieManager.js";
 import type { Browser, Page, ScreenshotOptions } from "puppeteer";
 import { injectHelper } from "./helperInjector.js";
 import { wait } from "../util/timer.js";
 import { puppeteerService } from "../puppeteer/index.js";
+import { server } from "../../server.js";
 
 const puppeteer = puppeteerService.getPuppeteer()
 const aternosURL = "https://aternos.org/server/"
@@ -100,10 +101,29 @@ export class AternosService {
         }
     }
 
+    // doent work anymore
+    private async bypassAdblockerDetection(page: Page) {
+    await page.evaluateOnNewDocument(() => {
+        // @ts-ignore
+        delete navigator.__proto__.webdriver;
+        // @ts-ignore
+        window.adsbygoogle = window.adsbygoogle || [];
+        // @ts-ignore
+        window.googletag = window.googletag || {};
+        // @ts-ignore
+        window.googletag.cmd = window.googletag.cmd || [];
+        // @ts-ignore
+        window.canRunAds = true;
+        // @ts-ignore
+        window.adBlockEnabled = false;
+    });
+}
+
     private async navigatePage() {
         const page = await this.browser?.newPage()!
+        // this.bypassAdblockerDetection(page)
         
-        await page.goto(aternosURL, { // aternosURL
+        await page.goto(aternosURL, {
             timeout: 0,
             waitUntil: "domcontentloaded"
         })
@@ -170,7 +190,22 @@ export class AternosService {
         })
     }
 
+    private async checkIsAuthenticated() {
+
+    }
+
+    private async updateAternosCookies() {
+        const cookies = await this.browser?.cookies()!
+        return updateAternosCookie(cookies)
+    }
+
     /* public exposed methods */
+
+    __DANGER_THROW_ERROR(message: string, confirm: string) {
+        if (confirm !== "iknowwhatimdoing") return console.log("ignoring error command, incorrect confirm message.")
+
+        throw new Error(message)
+    }
 
     subscribeServerActionChange(listener: Function) {
         const id = this.serverActionListeners.size
@@ -281,18 +316,18 @@ export class AternosService {
         })
     }
 
-
     async launch() {
+        if (this._status.isServiceReady) {
+            console.log("Aternos is already initialized!")
+            return
+        }
+        
         try {
-            if (this._status.isServiceReady) {
-                console.log("Aternos is already initialized!")
-                return
-            }
-    
             this.browser = await puppeteerService.getBrowser()
             await this.loadCookies()
         
             await this.navigatePage()
+
     
             await injectHelper(this.page!)
             const isHelpersInjected = await this.page?.evaluate(() => window.isHelpersInjected())
@@ -302,11 +337,13 @@ export class AternosService {
             await this.injectServerActionObserver()
     
             console.log("closing any open alert box...")
-
             await this.closeAlertbox()
 
             console.log("closing any ads...")
             await this.closeAdbox()
+
+            console.log("re-updating cookies...")
+            await this.updateAternosCookies()
     
             this._status.isServiceReady = true
     
@@ -318,6 +355,7 @@ export class AternosService {
             }
             
             console.log({err})
+            server.closeServer()
         }
     }
 

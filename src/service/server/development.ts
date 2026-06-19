@@ -1,5 +1,13 @@
 import { Hono } from "hono";
 import { AternosServerActions, AternosServerActionsSelector, AternosService, serverActions, type AternosServerActionsType } from "../aternos/index.js";
+import { server } from "../../server.js";
+
+// THIS ATERNOS API IS STILL IN DEVELOPMENT
+// THE API AND ITS FEATURES MAY BE REWRITTEN
+// OR REMOVED LATER IN DEVELOPMENT
+
+// THIS SERVES AS A TESTING KIT FOR DEVELOPERS
+// ACTUAL API FOR THE ATERNOS SERVICE IS WIP
 
 export const dev = new Hono({ strict: false })
 const aternos = AternosService.getInstance()
@@ -22,6 +30,9 @@ const routes = [
     "/screenshot - takes a screenshot and display it",
     "/evaluate - used to send executable javascript to the browser",
     "/ping - test the server",
+    "--DANGER--",
+    "/throwError/:message - allow throwing an error with custom message",
+    "/shutdown - stops the server",
 ]
 
 
@@ -70,6 +81,8 @@ dev.get("/click/:action", async (c) => {
             console.error(err)
             success = false
         }
+    } else {
+        success = false
     }
 
     return c.json({ success })
@@ -117,3 +130,17 @@ dev.post("/evaluate", async (c) => {
 })
 
 dev.get("/ping", (c) => c.text("pinged!!"))
+
+// for dev purposes
+dev.get("/throwError/:message", (c) => {
+    const message = c.req.param("message")
+
+    aternos.__DANGER_THROW_ERROR(message, "iknowwhatimdoing")
+    return c.body("error sent.")
+})
+
+dev.get("/shutdown", (c) => {
+    console.log("shutdown command received from dev API")
+    server.closeServer()
+    return c.body("shutting down...")
+})

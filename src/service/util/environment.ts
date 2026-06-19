@@ -1,19 +1,28 @@
+import { config } from 'dotenv';
 import { EnvType, load } from 'ts-dotenv';
+
+config({ quiet: true })
 
 export type Env = EnvType<typeof schema>;
 
 export const schema = {
+    // facebook
     FB_PAGE_TOKEN: String,
     FB_APP_ID: String,
     FB_PAGE_ID: String,
     FB_WEBHOOK_VERIFY_TOKEN: String,
 
-    // firebase credentials
-    FIREBASE_CRED_LIST: String,
+    // firebase
     FIREBASE_DATABASE_URL: String,
+    FIREBASE_ADMIN_CREDENTIALS: String,
 
     // "production" | "development"
     APP_ENVIRONMENT_STATE: String,
+
+
+    // "vercel" | "server"
+    SERVER_HOST: String,
+    DECRYPT_LIB_PASSWORD: String
 };
 
 export let env: Env = load(schema)

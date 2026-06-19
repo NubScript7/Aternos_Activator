@@ -2,13 +2,10 @@ import { readFile, writeFile } from "fs/promises";
 import path from "path";
 import { env } from "../util/environment.js";
 import { CookieLoaderManagerService } from "../cookieLoader/index.js";
-import { FirebaseDatabaseService } from "../firebase/database/index.js";
-import { ATERNOS_DB_PATH_PREFIX, type AternosCookieLoaderService } from "../cookieLoader/aternosCookie.js";
+import { type AternosCookieLoaderService } from "../cookieLoader/aternosCookie.js";
 
 const cookiePath = path.resolve(process.cwd(), "./secret/cookie/aternos.json")
 const cookieLoaderManager = CookieLoaderManagerService.getInstance()
-
-const database = FirebaseDatabaseService.getInstance()
 
 export async function getAternosCookieFromFile() {
     try {
@@ -36,11 +33,10 @@ export async function getAternosCookie() {
     }
 }
 
-export function updateAternosCookieToLoader(cookies: any[]) {
-    const cookiesString = JSON.stringify(cookies)
+export async function updateAternosCookieToLoader(cookies: any[]) {
     const aternosLoader = cookieLoaderManager.cookieLoaders.aternos as AternosCookieLoaderService
 
-    return aternosLoader.setCookie(cookiesString)
+    return aternosLoader.setCookie(cookies)
 }
 
 export async function updateAternosCookieToFile(cookies: any[]) {
@@ -49,11 +45,13 @@ export async function updateAternosCookieToFile(cookies: any[]) {
         return writeFile(cookiePath, cookiesString)
     } catch (err) {
         console.warn("Failed to write Aternos cookie:", err)
-        return null
     }
-    
 }
 
-export function updateAternosCookie() {
-    
+export function updateAternosCookie(cookies: any[]) {
+    if (env.APP_ENVIRONMENT_STATE == "production") {
+        return updateAternosCookieToLoader(cookies)
+    } else {
+        return updateAternosCookieToFile(cookies)
+    }
 }

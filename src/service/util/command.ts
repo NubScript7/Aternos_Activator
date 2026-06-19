@@ -17,8 +17,8 @@ export const COMMANDS: CommandStructure = {
         default: [
             `To use, type the message you want to ask Aternos Activator or you could use these commands:\n\n` +
             "!help - used to print this help message\n" +
-            "!available-actions - gets the available server actions" +
-            "!actions - gives the list of valid server actions" +
+            "!actions - gets the available server actions" +
+            "!available-actions - gives the list of valid server actions" +
             "!click [action] - clicks a server action",
             "!info - gets the current server stats"
         ]
@@ -54,11 +54,11 @@ export const COMMANDS: CommandStructure = {
         default: ["This is used to click a server action. Type '!actions' to see the current available actions."]
     },
 
-    actions: {
-        default: ["List of available server actions: \n\n" + serverActions.join("\n")]
+    "available-actions": {
+        default: ["List of valid server actions: \n\n" + serverActions.join("\n")]
     },
 
-    "available-actions": {
+    actions: {
         default: async () => {
             if (!aternos.status.isServiceReady) {
                 return ["Aternos service is still initializing..."]

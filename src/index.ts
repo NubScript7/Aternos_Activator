@@ -1,14 +1,7 @@
-import { serve } from "@hono/node-server";
+import { server } from "./server.js";
 import { AternosServerActions, AternosService, type AternosServerActionsType } from "./service/aternos/index.js";
-import { server } from "./service/server/index.js";
 
 async function main() {
-    serve({
-        fetch: server.fetch,
-        port: 3000
-    })
-    console.log("Server is running...")
-
     const aternos = AternosService.getInstance()
     await aternos.launch()
 
@@ -26,4 +19,9 @@ async function main() {
 
 }
 
-main()
+server.onInitialize(() => {
+    console.log("Server is running...")
+    main()
+})
+
+server.startServer()

@@ -14,7 +14,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsup src/index.ts",
-    "start": "npm run build && node dist/index.cjs"
+    "dev": "tsx src/index.ts",
+    "preview": "node dist/index.cjs",
+    "start": "npm run build && npm run preview"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",

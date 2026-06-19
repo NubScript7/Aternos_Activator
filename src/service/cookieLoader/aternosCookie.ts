@@ -1,15 +1,10 @@
-import { config } from "dotenv";
-import { FirebaseDatabaseService } from "../firebase/database/index.js";
 import { CookieLoaderService } from "./CookieLoaderService.js";
-import { createAdapter } from "iocane"
-import { decode } from "../util/encoder.js";
+import { decode, DECRYPT_LIB_PASSWORD, encode } from "../util/encoder.js";
+import { firebaseDatabase } from "../firebase/database/index.js";
 
-config({quiet: true})
+export const ATERNOS_DB_PATH_PREFIX = "service/aternos/cookieString"
+// const valueKey = "cookieString"
 
-export const ATERNOS_DB_PATH_PREFIX = "service/aternos/cookie"
-
-const database = FirebaseDatabaseService.getInstance()
-database.initialize()
 export class AternosCookieLoaderService extends CookieLoaderService {
     
     hasLoaded = false
@@ -17,15 +12,15 @@ export class AternosCookieLoaderService extends CookieLoaderService {
     
     async loadCookie() {
         if (this.hasLoaded) return
+        const db = await firebaseDatabase.onInitialize()
 
-        const cookiePath = database.db?.ref(ATERNOS_DB_PATH_PREFIX)
+        const cookiePath = db.ref(ATERNOS_DB_PATH_PREFIX)
         const cookie = await cookiePath?.once("value")
-        const valueRaw = cookie?.child("string").val()
+        
+        if (!cookie.exists()) return
 
-        if (!valueRaw) return
-
-        const password = process.env.ATERNOS_COOKIE_LOADER_DECRYPT_PASWRD
-        const value = await decode(valueRaw, password!)
+        const valueRaw = cookie.val()
+        const value = await decode(valueRaw, DECRYPT_LIB_PASSWORD)
         const json = JSON.parse(value)
 
         this.cookie = json
@@ -34,9 +29,13 @@ export class AternosCookieLoaderService extends CookieLoaderService {
     /**
      * Provide cookies in stringified form
      */
-    setCookie(cookies: string) {
-        const cookiePath = database.db?.ref(ATERNOS_DB_PATH_PREFIX)
-        return cookiePath?.set(cookies)
+    async setCookie(cookies: any[]) {
+        const json = JSON.stringify(cookies)
+        const value = await encode(json, DECRYPT_LIB_PASSWORD)
+
+        const db = await firebaseDatabase.onInitialize()
+        const cookiePath = db.ref(ATERNOS_DB_PATH_PREFIX)
+        return cookiePath.set(value)
     }
     
 }
