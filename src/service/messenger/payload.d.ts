@@ -22,3 +22,5 @@ export type MessengerWebhookPayloadEntryMessage = {
         text: string
     }
 }
+
+export type PSID = string

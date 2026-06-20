@@ -1,7 +1,7 @@
 import { AternosServerActions, AternosService, serverActions, type AternosServerActionsType } from "../aternos/index";
+import { PSID } from "../messenger/payload";
 
 export const PREFIX = "!";
-type PSID = string;
 
 const aternos = AternosService.getInstance()
 

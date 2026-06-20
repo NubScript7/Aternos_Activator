@@ -3,8 +3,6 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import AdblockerPlugin from "puppeteer-extra-plugin-adblocker"
 import { getPuppeteerConfig } from "./config";
 import type { Browser } from "puppeteer-core";
-// import type { Browser } from "./puppeteer.js";
-
 
 export class PuppeteerService {
     private static _instance: PuppeteerService | null = null

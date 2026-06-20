@@ -4,11 +4,7 @@ import { injectHelper } from "./helperInjector";
 import { wait } from "../util/timer";
 import { puppeteerService } from "../puppeteer/index";
 import { server } from "../../server";
-
-const puppeteer = puppeteerService.getPuppeteer()
-const aternosURL = "https://aternos.org/server/"
-
-const shortTimeout = 3_000
+import { env } from "../util/environment";
 
 export enum AternosServerStatus {
     STOPPED,
@@ -123,7 +119,7 @@ export class AternosService {
         const page = await this.browser?.newPage()!
         // this.bypassAdblockerDetection(page)
         
-        await page.goto(aternosURL, {
+        await page.goto(env.ATERNOS_URL, {
             timeout: 0,
             waitUntil: "domcontentloaded"
         })

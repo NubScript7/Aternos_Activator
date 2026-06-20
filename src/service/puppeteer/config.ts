@@ -1,6 +1,5 @@
 import chromium from "@sparticuz/chromium"
 import type { LaunchOptions } from "puppeteer-core";
-// import type { LaunchOptions } from "./puppeteer.js";
 
 export async function getPuppeteerConfig() {
     return {

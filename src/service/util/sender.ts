@@ -1,7 +1,6 @@
 import axios from "axios";
 import { env } from "./environment";
-
-type PSID = string;
+import { PSID } from "../messenger/payload";
 
 export class Sender {
     private static instance: Sender

@@ -7,4 +7,3 @@ export abstract class CookieLoaderService {
 }
 
 export type CookieLoaderServiceConstructor = new (...args: any[]) => CookieLoaderService;
-

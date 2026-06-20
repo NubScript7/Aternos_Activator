@@ -23,7 +23,7 @@ class HttpServer {
 
     closeServer() {
         this.server!.close(() => {
-            console.log('Server closed')
+            console.log('Server received kill signal, shutting down...')
             process.exit(0)
         })
     }

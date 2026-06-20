@@ -3,8 +3,6 @@ import { decode, DECRYPT_LIB_PASSWORD, encode } from "../util/encoder";
 import { firebaseDatabase } from "../firebase/database/index";
 
 export const ATERNOS_DB_PATH_PREFIX = "service/aternos/cookieString"
-// const valueKey = "cookieString"
-
 export class AternosCookieLoaderService extends CookieLoaderService {
     
     hasLoaded = false
