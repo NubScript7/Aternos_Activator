@@ -1,5 +1,5 @@
-import { AternosCookieLoaderService } from "./aternosCookie.js";
-import { CookieLoaderService, type CookieLoaderServiceConstructor } from "./CookieLoaderService.js";
+import { AternosCookieLoaderService } from "./aternosCookie";
+import { CookieLoaderService, type CookieLoaderServiceConstructor } from "./CookieLoaderService";
 
 const loadableCookieServices = {
     aternos: AternosCookieLoaderService

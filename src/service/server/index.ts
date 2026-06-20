@@ -1,6 +1,6 @@
 import { Hono } from "hono"
-import { dev } from "./development.js";
-import { messenger } from "../messenger/index.js";
+import { dev } from "./development";
+import { messenger } from "../messenger/index";
 import { serveStatic } from '@hono/node-server/serve-static'
 
 export const devServer = new Hono()

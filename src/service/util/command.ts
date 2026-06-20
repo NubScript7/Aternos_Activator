@@ -1,4 +1,4 @@
-import { AternosServerActions, AternosService, serverActions, type AternosServerActionsType } from "../aternos/index.js";
+import { AternosServerActions, AternosService, serverActions, type AternosServerActionsType } from "../aternos/index";
 
 export const PREFIX = "!";
 type PSID = string;

@@ -1,7 +1,7 @@
 import { initializeApp, cert, type App } from "firebase-admin/app"
-import { getFirebaseCredential } from "./credentials.js";
-import { env } from "../util/environment.js";
-import { callbackHandler } from "../util/callback.js";
+import { getFirebaseCredential } from "./credentials";
+import { env } from "../util/environment";
+import { callbackHandler } from "../util/callback";
 
 class FirebaseService {
     private static _instance: FirebaseService | null = null

@@ -1,6 +1,6 @@
 import { serve, type ServerType } from "@hono/node-server";
-import { devServer } from "./service/server/index.js";
-import { callbackHandler, type callback } from "./service/util/callback.js";
+import { devServer } from "./service/server/index";
+import { callbackHandler, type callback } from "./service/util/callback";
 
 class HttpServer {
     #initialized = false

@@ -1,6 +1,6 @@
 import { Hono } from "hono";
-import { AternosServerActions, AternosServerActionsSelector, AternosService, serverActions, type AternosServerActionsType } from "../aternos/index.js";
-import { server } from "../../server.js";
+import { AternosServerActions, AternosService, serverActions } from "../aternos/index.js";
+import { server } from "../../server";
 
 // THIS ATERNOS API IS STILL IN DEVELOPMENT
 // THE API AND ITS FEATURES MAY BE REWRITTEN
@@ -107,7 +107,7 @@ dev.get("/status", (c) => {
 dev.get("/screenshot", async (c) => {
     const image = await aternos.takeScreenshot()
 
-    return c.body(image!, 200, {
+    return c.body(image.buffer as ArrayBuffer, 200, {
         "Content-Type": "image/jpeg"
     })
 })

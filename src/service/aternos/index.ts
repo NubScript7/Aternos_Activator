@@ -1,9 +1,9 @@
-import { getAternosCookie, updateAternosCookie } from "./cookieManager.js";
-import type { Browser, Page, ScreenshotOptions } from "puppeteer";
-import { injectHelper } from "./helperInjector.js";
-import { wait } from "../util/timer.js";
-import { puppeteerService } from "../puppeteer/index.js";
-import { server } from "../../server.js";
+import { getAternosCookie, updateAternosCookie } from "./cookieManager";
+import type { Page, ScreenshotOptions, Browser } from "puppeteer-core";
+import { injectHelper } from "./helperInjector";
+import { wait } from "../util/timer";
+import { puppeteerService } from "../puppeteer/index";
+import { server } from "../../server";
 
 const puppeteer = puppeteerService.getPuppeteer()
 const aternosURL = "https://aternos.org/server/"
@@ -307,8 +307,8 @@ export class AternosService {
     }
 
     
-    async takeScreenshot(options?: ScreenshotOptions) {
-        return this.page?.screenshot(options || {
+    takeScreenshot(options?: ScreenshotOptions) {
+        return this.page!.screenshot(options || {
             fullPage: true,
             optimizeForSpeed: true,
             type: "jpeg",

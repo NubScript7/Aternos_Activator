@@ -29,9 +29,9 @@ importers:
       iocane:
         specifier: ^5.2.0
         version: 5.2.0
-      puppeteer:
-        specifier: ^24.40.0
-        version: 24.43.1(typescript@6.0.3)
+      puppeteer-core:
+        specifier: ^24.43.1
+        version: 24.43.1
       puppeteer-extra:
         specifier: ^3.3.6
         version: 3.3.6(@types/puppeteer@5.4.7)(puppeteer-core@24.43.1)(puppeteer@24.43.1(typescript@6.0.3))

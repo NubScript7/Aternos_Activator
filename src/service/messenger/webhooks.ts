@@ -1,8 +1,8 @@
-import type { MessengerWebhookPayload } from "./payload.js";
-import { handleCommand } from "../util/command.js";
-import { Sender } from "../util/sender.js";
+import type { MessengerWebhookPayload } from "./payload";
+import { handleCommand } from "../util/command";
+import { Sender } from "../util/sender";
 import type { Context } from "hono";
-import { env } from "../util/environment.js";
+import { env } from "../util/environment";
 
 const sender = Sender.getInstance()
 

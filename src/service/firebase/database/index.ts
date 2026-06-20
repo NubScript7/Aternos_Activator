@@ -1,6 +1,6 @@
 import { getDatabase, type Database } from "firebase-admin/database"
-import { firebaseService, type FirebaseService } from "../index.js";
-import { callbackHandler } from "../../util/callback.js";
+import { firebaseService, type FirebaseService } from "../index";
+import { callbackHandler } from "../../util/callback";
 export const FIREBASE_DATABASE_PREFIX = "AternosActivator/cookie"
 
 class FirebaseDatabaseService {

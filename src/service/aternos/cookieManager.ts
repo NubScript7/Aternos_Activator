@@ -1,8 +1,8 @@
 import { readFile, writeFile } from "fs/promises";
 import path from "path";
-import { env } from "../util/environment.js";
-import { CookieLoaderManagerService } from "../cookieLoader/index.js";
-import { type AternosCookieLoaderService } from "../cookieLoader/aternosCookie.js";
+import { env } from "../util/environment";
+import { CookieLoaderManagerService } from "../cookieLoader/index";
+import { type AternosCookieLoaderService } from "../cookieLoader/aternosCookie";
 
 const cookiePath = path.resolve(process.cwd(), "./secret/cookie/aternos.json")
 const cookieLoaderManager = CookieLoaderManagerService.getInstance()

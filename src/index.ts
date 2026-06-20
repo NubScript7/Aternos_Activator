@@ -1,5 +1,5 @@
-import { server } from "./server.js";
-import { AternosServerActions, AternosService, type AternosServerActionsType } from "./service/aternos/index.js";
+import { server } from "./server";
+import { AternosServerActions, AternosService, type AternosServerActionsType } from "./service/aternos/index";
 
 async function main() {
     const aternos = AternosService.getInstance()

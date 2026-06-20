@@ -1,10 +1,10 @@
 import { config } from "dotenv";
-import { env } from "../util/environment.js"
-import { fileExists } from "../util/filesystem.js";
+import { env } from "../util/environment"
+import { fileExists } from "../util/filesystem";
 import { resolve } from "path";
 import { readFile } from "fs/promises";
 import type { ServiceAccount } from "firebase-admin";
-import { decode, DECRYPT_LIB_PASSWORD } from "../util/encoder.js";
+import { decode, DECRYPT_LIB_PASSWORD } from "../util/encoder";
 
 const credPath = resolve(process.cwd(), "./secret/cookie/firebaseAdmin.json")
 

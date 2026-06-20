@@ -1,5 +1,5 @@
-import type { Page } from "puppeteer";
-import type { AternosServerActionsType } from "./index.js";
+import type { Page } from "puppeteer-core";
+import type { AternosServerActionsType } from "./index";
 
 export async function injectHelper(page: Page) {
     const helperInjector = () => {

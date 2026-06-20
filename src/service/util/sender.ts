@@ -1,5 +1,5 @@
 import axios from "axios";
-import { env } from "./environment.js";
+import { env } from "./environment";
 
 type PSID = string;
 

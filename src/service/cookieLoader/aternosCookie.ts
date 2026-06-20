@@ -1,6 +1,6 @@
-import { CookieLoaderService } from "./CookieLoaderService.js";
-import { decode, DECRYPT_LIB_PASSWORD, encode } from "../util/encoder.js";
-import { firebaseDatabase } from "../firebase/database/index.js";
+import { CookieLoaderService } from "./CookieLoaderService";
+import { decode, DECRYPT_LIB_PASSWORD, encode } from "../util/encoder";
+import { firebaseDatabase } from "../firebase/database/index";
 
 export const ATERNOS_DB_PATH_PREFIX = "service/aternos/cookieString"
 // const valueKey = "cookieString"

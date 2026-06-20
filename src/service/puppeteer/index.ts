@@ -1,8 +1,10 @@
 import extra, { type PuppeteerExtra } from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import AdblockerPlugin from "puppeteer-extra-plugin-adblocker"
-import type { Browser } from "puppeteer";
-import { getPuppeteerConfig } from "./config.js";
+import { getPuppeteerConfig } from "./config";
+import type { Browser } from "puppeteer-core";
+// import type { Browser } from "./puppeteer.js";
+
 
 export class PuppeteerService {
     private static _instance: PuppeteerService | null = null
@@ -22,7 +24,7 @@ export class PuppeteerService {
         if (!this.puppeteer) {
             this.puppeteer = extra as unknown as PuppeteerExtra
 
-            const adblocker = AdblockerPlugin.default({
+            const adblocker = AdblockerPlugin({
                 blockTrackers: true
             })
 
@@ -47,7 +49,6 @@ export class PuppeteerService {
         
         return this.browser
     }
-
 }
 
 export const puppeteerService = PuppeteerService.geInstance()

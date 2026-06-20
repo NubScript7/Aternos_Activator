@@ -1,7 +1,7 @@
 import { Hono } from "hono";
-import type { MessengerWebhookPayload } from "./payload.js";
-import { AternosService } from "../aternos/index.js";
-import { onNewMessageWebhook, onNewVerifyWebhook } from "./webhooks.js";
+import type { MessengerWebhookPayload } from "./payload";
+import { AternosService } from "../aternos/index";
+import { onNewMessageWebhook, onNewVerifyWebhook } from "./webhooks";
 
 export const messenger = new Hono({strict: false})
 const aternos = AternosService.getInstance()

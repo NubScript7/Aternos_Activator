@@ -1,5 +1,5 @@
 import { createAdapter } from "iocane";
-import { env } from "./environment.js";
+import { env } from "./environment";
 
 export const { DECRYPT_LIB_PASSWORD } = env;
 
