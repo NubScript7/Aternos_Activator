@@ -19,7 +19,7 @@ export const schema = {
     // "production" | "development"
     APP_ENVIRONMENT_STATE: String,
     ATERNOS_URL: String,
-
+    APP_DEBUG_KILL_ON_ERROR: Boolean,
 
     // "vercel" | "server"
     SERVER_HOST: String,

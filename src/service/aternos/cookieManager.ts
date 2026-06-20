@@ -3,6 +3,7 @@ import path from "path";
 import { env } from "../util/environment";
 import { CookieLoaderManagerService } from "../cookieLoader/index";
 import { type AternosCookieLoaderService } from "../cookieLoader/aternosCookie";
+import { IS_PRODUCTION } from "../util/state";
 
 const cookiePath = path.resolve(process.cwd(), "./secret/cookie/aternos.json")
 const cookieLoaderManager = CookieLoaderManagerService.getInstance()
@@ -26,7 +27,7 @@ export async function getAternosCookieFromLoader() {
 }
 
 export async function getAternosCookie() {
-    if (env.APP_ENVIRONMENT_STATE == "production") {
+    if (IS_PRODUCTION) {
         return getAternosCookieFromLoader()
     } else {
         return getAternosCookieFromFile()
@@ -49,7 +50,7 @@ export async function updateAternosCookieToFile(cookies: any[]) {
 }
 
 export function updateAternosCookie(cookies: any[]) {
-    if (env.APP_ENVIRONMENT_STATE == "production") {
+    if (IS_PRODUCTION) {
         return updateAternosCookieToLoader(cookies)
     } else {
         return updateAternosCookieToFile(cookies)

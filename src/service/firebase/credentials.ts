@@ -5,11 +5,12 @@ import { resolve } from "path";
 import { readFile } from "fs/promises";
 import type { ServiceAccount } from "firebase-admin";
 import { decode, DECRYPT_LIB_PASSWORD } from "../util/encoder";
+import { IS_PRODUCTION } from "../util/state";
 
 const credPath = resolve(process.cwd(), "./secret/cookie/firebaseAdmin.json")
 
-export async function getFirebaseCredential() {
-    return await (env.APP_ENVIRONMENT_STATE === "production" ? getFirebaseCredentialFromEnv() : getFirebaseCredentialFromFile())
+export function getFirebaseCredential() {
+    return IS_PRODUCTION ? getFirebaseCredentialFromEnv() : getFirebaseCredentialFromFile()
 }
 
 export async function getFirebaseCredentialFromEnv() {

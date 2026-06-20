@@ -1,6 +1,7 @@
 import { serve, type ServerType } from "@hono/node-server";
 import { devServer } from "./service/server/index";
 import { callbackHandler, type callback } from "./service/util/callback";
+import { env } from "./service/util/environment";
 
 class HttpServer {
     #initialized = false
@@ -22,8 +23,10 @@ class HttpServer {
     }
 
     closeServer() {
+        if (env.APP_DEBUG_KILL_ON_ERROR) return console.warn("Server ignored kill signal because debug kill is set to false")
+        
         this.server!.close(() => {
-            console.log('Server received kill signal, shutting down...')
+            console.log('Server received kill signal, shutting down...')    
             process.exit(0)
         })
     }
