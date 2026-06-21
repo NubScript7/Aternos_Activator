@@ -23,7 +23,7 @@ class HttpServer {
     }
 
     closeServer() {
-        if (env.APP_DEBUG_KILL_ON_ERROR) return console.warn("Server ignored kill signal because debug kill is set to false")
+        if (!env.APP_DEBUG_KILL_ON_ERROR) return console.warn("Server ignored kill signal because debug kill is set to false")
         
         this.server!.close(() => {
             console.log('Server received kill signal, shutting down...')    

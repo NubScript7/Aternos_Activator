@@ -312,6 +312,24 @@ export class AternosService {
         })
     }
 
+    async postlaunchSetup() {
+        await injectHelper(this.page!)
+        const isHelpersInjected = await this.page?.evaluate(() => window.isHelpersInjected())
+        console.log(isHelpersInjected)
+
+        await this.injectStatusObserver()
+        await this.injectServerActionObserver()
+
+        console.log("closing any open alert box...")
+        await this.closeAlertbox()
+
+        console.log("closing any ads...")
+        await this.closeAdbox()
+
+        console.log("re-updating cookies...")
+        await this.updateAternosCookies()
+    }
+
     async launch() {
         if (this._status.isServiceReady) {
             console.log("Aternos is already initialized!")
@@ -321,28 +339,13 @@ export class AternosService {
         try {
             this.browser = await puppeteerService.getBrowser()
             await this.loadCookies()
-        
             await this.navigatePage()
 
-    
-            await injectHelper(this.page!)
-            const isHelpersInjected = await this.page?.evaluate(() => window.isHelpersInjected())
-            console.log(isHelpersInjected)
-    
-            await this.injectStatusObserver()
-            await this.injectServerActionObserver()
-    
-            console.log("closing any open alert box...")
-            await this.closeAlertbox()
-
-            console.log("closing any ads...")
-            await this.closeAdbox()
-
-            console.log("re-updating cookies...")
-            await this.updateAternosCookies()
+            if (!env.APP_DEBUG_BARE_PUPPETEER_ONLY) {
+                await this.postlaunchSetup()
+            }
     
             this._status.isServiceReady = true
-    
             console.log("Aternos service is ready!!")
         } catch (err) {
             if (err instanceof Error) {

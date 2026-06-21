@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { AternosServerActions, AternosService, serverActions } from "../aternos/index.js";
 import { server } from "../../server";
+import { env } from "../util/environment";
 
 // THIS ATERNOS API IS STILL IN DEVELOPMENT
 // THE API AND ITS FEATURES MAY BE REWRITTEN

@@ -20,6 +20,7 @@ export const schema = {
     APP_ENVIRONMENT_STATE: String,
     ATERNOS_URL: String,
     APP_DEBUG_KILL_ON_ERROR: Boolean,
+    APP_DEBUG_BARE_PUPPETEER_ONLY: Boolean,
 
     // "vercel" | "server"
     SERVER_HOST: String,
@@ -27,3 +28,4 @@ export const schema = {
 };
 
 export let env: Env = load(schema)
+
