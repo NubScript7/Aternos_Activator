@@ -16,16 +16,23 @@ class HttpServer {
             port: 3000
         })
 
-        process.on('SIGINT', () => this.closeServer)
-        process.on('SIGTERM', () => this.closeServer)
+        process.on('SIGINT', () => this.forceClose())
+        process.on('SIGTERM', () => this.forceClose())
         this.#initialized = true
         this.initHandler.resolve(this.server)
+    }
+
+    forceClose() {
+        this.server?.close(() => {
+            console.warn("force closing server...")
+            process.exit(0)
+        })
     }
 
     closeServer() {
         if (!env.APP_DEBUG_KILL_ON_ERROR) return console.warn("Server ignored kill signal because debug kill is set to false")
         
-        this.server!.close(() => {
+        this.server?.close(() => {
             console.log('Server received kill signal, shutting down...')    
             process.exit(0)
         })

@@ -99,30 +99,39 @@ export class AternosService {
 
     // doent work anymore
     private async bypassAdblockerDetection(page: Page) {
-    await page.evaluateOnNewDocument(() => {
-        // @ts-ignore
-        delete navigator.__proto__.webdriver;
-        // @ts-ignore
-        window.adsbygoogle = window.adsbygoogle || [];
-        // @ts-ignore
-        window.googletag = window.googletag || {};
-        // @ts-ignore
-        window.googletag.cmd = window.googletag.cmd || [];
-        // @ts-ignore
-        window.canRunAds = true;
-        // @ts-ignore
-        window.adBlockEnabled = false;
-    });
-}
+        await page.evaluateOnNewDocument(() => {
+            // @ts-ignore
+            delete navigator.__proto__.webdriver;
+            // @ts-ignore
+            window.adsbygoogle = window.adsbygoogle || [];
+            // @ts-ignore
+            window.googletag = window.googletag || {};
+            // @ts-ignore
+            window.googletag.cmd = window.googletag.cmd || [];
+            // @ts-ignore
+            window.canRunAds = true;
+            // @ts-ignore
+            window.adBlockEnabled = false;
+        });
+    }
+
+    private async authenticateProxy(page: Page) {
+        const [ USERNAME, PASSWORD ] = env.PROXY_CRED.split(":")
+        await page.authenticate({
+            username: USERNAME,
+            password: PASSWORD
+        })
+    }
 
     private async navigatePage() {
         const page = await this.browser?.newPage()!
-        // this.bypassAdblockerDetection(page)
+        await this.authenticateProxy(page)
         
         await page.goto(env.ATERNOS_URL, {
             timeout: 0,
             waitUntil: "domcontentloaded"
         })
+
 
         this.page = page
         this._status.hasPageLoaded = true

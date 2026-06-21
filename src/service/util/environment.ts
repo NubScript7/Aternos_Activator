@@ -21,6 +21,9 @@ export const schema = {
     ATERNOS_URL: String,
     APP_DEBUG_KILL_ON_ERROR: Boolean,
     APP_DEBUG_BARE_PUPPETEER_ONLY: Boolean,
+    
+    PROXY_DOMAIN: String,
+    PROXY_CRED: String,
 
     // "vercel" | "server"
     SERVER_HOST: String,

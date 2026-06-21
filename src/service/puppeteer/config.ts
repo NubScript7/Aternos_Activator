@@ -5,7 +5,7 @@ import { IS_PRODUCTION } from "../util/state";
 
 export async function getProductionConfig() {
     return {
-        args: [...chromium.args, '--no-sandbox', '--disable-setuid-sandbox'],
+        args: [...chromium.args, '--no-sandbox', '--disable-setuid-sandbox', `--proxy-server=${env.PROXY_DOMAIN}`],
         headless: false,
         executablePath: await chromium.executablePath(),
         defaultViewport: {
@@ -22,7 +22,7 @@ export async function getLocalConfig() {
         defaultViewport: {
             height: 768,
             width: 1366,
-        }
+        },
     } as LaunchOptions
 }
 
